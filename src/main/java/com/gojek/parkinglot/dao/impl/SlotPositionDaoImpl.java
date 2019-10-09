@@ -27,6 +27,7 @@ public class SlotPositionDaoImpl implements SlotPositionDao {
     @Override
     public int parkVehicle(final Vehicle vehicle) {
         verifyInitialization();
+
         return 0;
     }
 
