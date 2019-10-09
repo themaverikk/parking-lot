@@ -2,7 +2,7 @@ package com.gojek.parkinglot.dao;
 
 import com.gojek.parkinglot.model.Vehicle;
 
-public interface RegNumberSlotInfoDao {
+public interface ParkingSlotRegNumberInfoDao {
     void parkVehicle(int slotNumber, Vehicle vehicle);
 
     void unParkVehicle(Vehicle vehicle);

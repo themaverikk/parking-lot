@@ -5,12 +5,12 @@ import com.gojek.parkinglot.model.Vehicle;
 
 import java.util.List;
 
-public interface SlotPositionDao {
+public interface ParkingSlotPositionDao {
     void initParkingSlotPositions(int parkingCapacity);
 
     void parkVehicle(int slotNumber, Vehicle vehicle);
 
-    boolean unParkVehicle(int slotNumber);
+    Vehicle unParkVehicle(int slotNumber);
 
     List<ParkingSlot> getParkingStatus();
 }

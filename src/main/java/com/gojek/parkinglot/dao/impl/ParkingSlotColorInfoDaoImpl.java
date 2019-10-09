@@ -1,8 +1,9 @@
 package com.gojek.parkinglot.dao.impl;
 
-import com.gojek.parkinglot.dao.ColorSlotInfoDao;
+import com.gojek.parkinglot.dao.ParkingSlotColorInfoDao;
 import com.gojek.parkinglot.model.Vehicle;
 import com.gojek.parkinglot.utils.StringUtils;
+import com.gojek.parkinglot.utils.VehicleValidationUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,24 +13,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ColorSlotInfoDaoImpl implements ColorSlotInfoDao {
+public class ParkingSlotColorInfoDaoImpl implements ParkingSlotColorInfoDao {
 
     private final Map<String, Set<Integer>> colorToSlotNumbersMap;
 
-    private static final ColorSlotInfoDao instance = new ColorSlotInfoDaoImpl();
+    private static final ParkingSlotColorInfoDao instance = new ParkingSlotColorInfoDaoImpl();
 
-    private ColorSlotInfoDaoImpl() {
+    private ParkingSlotColorInfoDaoImpl() {
         colorToSlotNumbersMap = new HashMap<>();
     }
 
-    public static ColorSlotInfoDao getInstance() {
+    public static ParkingSlotColorInfoDao getInstance() {
         return instance;
     }
 
     @Override
     public boolean parkVehicle(final int slotNumber, final Vehicle vehicle) {
         validateSlotNumber(slotNumber);
-        validateVehicle(vehicle);
+        VehicleValidationUtil.validateVehicle(vehicle);
 
         if (!this.colorToSlotNumbersMap.containsKey(vehicle.getColor())) {
             this.colorToSlotNumbersMap.put(vehicle.getColor(), new HashSet<>());
@@ -41,7 +42,7 @@ public class ColorSlotInfoDaoImpl implements ColorSlotInfoDao {
     @Override
     public boolean unParkVehicle(final int slotNumber, final Vehicle vehicle) {
         validateSlotNumber(slotNumber);
-        validateVehicle(vehicle);
+        VehicleValidationUtil.validateVehicle(vehicle);
         validateVehicleColorPresent(vehicle.getColor());
 
         return this.colorToSlotNumbersMap.get(vehicle.getColor()).remove(slotNumber);
@@ -61,12 +62,6 @@ public class ColorSlotInfoDaoImpl implements ColorSlotInfoDao {
     private void validateSlotNumber(final int slotNumber) {
         if (slotNumber < 1) {
             throw new IllegalArgumentException("slotNumber is invalid");
-        }
-    }
-
-    private void validateVehicle(final Vehicle vehicle) {
-        if (vehicle == null || StringUtils.isBlank(vehicle.getRegNumber()) || StringUtils.isBlank(vehicle.getColor())) {
-            throw new IllegalArgumentException("Invalid vehicle object");
         }
     }
 

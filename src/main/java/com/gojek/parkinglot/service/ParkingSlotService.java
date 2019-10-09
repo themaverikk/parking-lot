@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ParkingSlotService {
 
-    void initParkingSlot(int slotSize);
+    void initParkingSlot(int parkingCapacity);
 
     int parkVehicle(Vehicle vehicle);
 

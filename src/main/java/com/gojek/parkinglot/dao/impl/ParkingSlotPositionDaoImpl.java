@@ -1,24 +1,24 @@
 package com.gojek.parkinglot.dao.impl;
 
-import com.gojek.parkinglot.dao.SlotPositionDao;
+import com.gojek.parkinglot.dao.ParkingSlotPositionDao;
 import com.gojek.parkinglot.model.ParkingSlot;
 import com.gojek.parkinglot.model.Vehicle;
-import com.gojek.parkinglot.utils.StringUtils;
+import com.gojek.parkinglot.utils.VehicleValidationUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class SlotPositionDaoImpl implements SlotPositionDao {
-    private static final SlotPositionDao instance = new SlotPositionDaoImpl();
+public class ParkingSlotPositionDaoImpl implements ParkingSlotPositionDao {
+    private static final ParkingSlotPositionDao instance = new ParkingSlotPositionDaoImpl();
 
     private List<Vehicle> parkingSlots;
 
-    private SlotPositionDaoImpl() {
+    private ParkingSlotPositionDaoImpl() {
     }
 
-    public static SlotPositionDao getInstance() {
+    public static ParkingSlotPositionDao getInstance() {
         return instance;
     }
 
@@ -31,7 +31,7 @@ public class SlotPositionDaoImpl implements SlotPositionDao {
     public void parkVehicle(final int slotNumber, final Vehicle vehicle) {
         verifyInitialization();
         validateSlotNumber(slotNumber);
-        validateVehicle(vehicle);
+        VehicleValidationUtil.validateVehicle(vehicle);
 
         // slot is already occupied
         if (this.parkingSlots.get(slotNumber - 1) != null) {
@@ -42,7 +42,7 @@ public class SlotPositionDaoImpl implements SlotPositionDao {
     }
 
     @Override
-    public boolean unParkVehicle(final int slotNumber) {
+    public Vehicle unParkVehicle(final int slotNumber) {
         verifyInitialization();
         validateSlotNumber(slotNumber);
 
@@ -51,10 +51,7 @@ public class SlotPositionDaoImpl implements SlotPositionDao {
             throw new IllegalArgumentException("Given slot is already empty");
         }
 
-        this.parkingSlots.set(slotNumber - 1, null);
-
-        // returning boolean for future use case, in case we decide to change the logic and vehicle may or may not be unparked
-        return true;
+        return this.parkingSlots.set(slotNumber - 1, null);
     }
 
     @Override
@@ -79,9 +76,4 @@ public class SlotPositionDaoImpl implements SlotPositionDao {
         }
     }
 
-    private void validateVehicle(final Vehicle vehicle) {
-        if (vehicle == null || StringUtils.isBlank(vehicle.getRegNumber()) || StringUtils.isBlank(vehicle.getColor())) {
-            throw new IllegalArgumentException("Invalid vehicle object");
-        }
-    }
 }

@@ -1,29 +1,30 @@
 package com.gojek.parkinglot.dao.impl;
 
-import com.gojek.parkinglot.dao.RegNumberSlotInfoDao;
+import com.gojek.parkinglot.dao.ParkingSlotRegNumberInfoDao;
 import com.gojek.parkinglot.model.Vehicle;
 import com.gojek.parkinglot.utils.StringUtils;
+import com.gojek.parkinglot.utils.VehicleValidationUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegNumberSlotInfoDaoImpl implements RegNumberSlotInfoDao {
-    private static final RegNumberSlotInfoDao instance = new RegNumberSlotInfoDaoImpl();
+public class ParkingSlotRegNumberInfoDaoImpl implements ParkingSlotRegNumberInfoDao {
+    private static final ParkingSlotRegNumberInfoDao instance = new ParkingSlotRegNumberInfoDaoImpl();
 
     private final Map<String, Integer> regNumberToSlotNumberMap;
 
-    private RegNumberSlotInfoDaoImpl() {
+    private ParkingSlotRegNumberInfoDaoImpl() {
         regNumberToSlotNumberMap = new HashMap<>();
     }
 
-    public static RegNumberSlotInfoDao getInstance() {
+    public static ParkingSlotRegNumberInfoDao getInstance() {
         return instance;
     }
 
     @Override
     public void parkVehicle(final int slotNumber, final Vehicle vehicle) {
         validateSlotNumber(slotNumber);
-        validateVehicle(vehicle);
+        VehicleValidationUtil.validateVehicle(vehicle);
         validateVehicleIsNotPresent(vehicle);
 
         this.regNumberToSlotNumberMap.put(vehicle.getRegNumber(), slotNumber);
@@ -31,7 +32,7 @@ public class RegNumberSlotInfoDaoImpl implements RegNumberSlotInfoDao {
 
     @Override
     public void unParkVehicle(final Vehicle vehicle) {
-        validateVehicle(vehicle);
+        VehicleValidationUtil.validateVehicle(vehicle);
         validateVehiclePresent(vehicle);
 
         this.regNumberToSlotNumberMap.remove(vehicle.getRegNumber());
@@ -48,12 +49,6 @@ public class RegNumberSlotInfoDaoImpl implements RegNumberSlotInfoDao {
     private void validateSlotNumber(final int slotNumber) {
         if (slotNumber < 1) {
             throw new IllegalArgumentException("Invalid slot number");
-        }
-    }
-
-    private void validateVehicle(final Vehicle vehicle) {
-        if (vehicle == null || StringUtils.isBlank(vehicle.getRegNumber()) || StringUtils.isBlank(vehicle.getColor())) {
-            throw new IllegalArgumentException("Invalid vehicle object");
         }
     }
 
