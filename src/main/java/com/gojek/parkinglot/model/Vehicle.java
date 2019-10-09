@@ -4,6 +4,11 @@ public class Vehicle {
     private String regNumber;
     private String color;
 
+    public  Vehicle(String regNumber, String color){
+        this.regNumber = regNumber;
+        this.color = color;
+    }
+
     public String getRegNumber() {
         return regNumber;
     }
