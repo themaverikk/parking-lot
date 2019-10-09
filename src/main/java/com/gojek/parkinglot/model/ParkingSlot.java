@@ -4,6 +4,14 @@ public class ParkingSlot {
     private int slotNumber;
     private Vehicle parkedVehicle;
 
+    public ParkingSlot() {
+    }
+
+    public ParkingSlot(final int slotNumber, final Vehicle parkedVehicle) {
+        this.slotNumber = slotNumber;
+        this.parkedVehicle = parkedVehicle;
+    }
+
     public int getSlotNumber() {
         return slotNumber;
     }

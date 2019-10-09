@@ -2,7 +2,13 @@ package com.gojek.parkinglot.dao.impl;
 
 import com.gojek.parkinglot.dao.ParkingSlotAvailabilityDao;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.stream.IntStream;
+
 public class ParkingSlotAvailabilityDaoImpl implements ParkingSlotAvailabilityDao {
+
+    private final Queue<Integer> emptyParkingSlotsOrder;
 
     private static final ParkingSlotAvailabilityDao instance = new ParkingSlotAvailabilityDaoImpl();
 
@@ -11,25 +17,42 @@ public class ParkingSlotAvailabilityDaoImpl implements ParkingSlotAvailabilityDa
     }
 
     private ParkingSlotAvailabilityDaoImpl() {
+        emptyParkingSlotsOrder = new PriorityQueue<>();
     }
 
     @Override
-    public int initParkingSlotsAvailability(final int parkingCapacity) {
-        return 0;
+    public void initParkingSlotsAvailability(final int parkingCapacity) {
+        IntStream.range(1, parkingCapacity + 1).forEach(i -> this.emptyParkingSlotsOrder.offer(i));
     }
 
     @Override
     public int getNearestAvailableSlot() {
-        return 0;
+        return this.emptyParkingSlotsOrder.peek();
     }
 
     @Override
-    public int occupyParkingSlot(final int slotNumber) {
-        return 0;
+    public void occupyParkingSlot(final int slotNumber) {
+        validateSlotNumber(slotNumber);
+
+        // this flat will the parkingSlot was available or not
+        final boolean removed = this.emptyParkingSlotsOrder.remove(slotNumber);
+
+        if (!removed) {
+            throw new IllegalArgumentException("given slot was not empty");
+        }
+
     }
 
     @Override
-    public int freeParkingSlot(final int slotNumber) {
-        return 0;
+    public void freeParkingSlot(final int slotNumber) {
+        validateSlotNumber(slotNumber);
+
+        this.emptyParkingSlotsOrder.add(slotNumber);
+    }
+
+    private void validateSlotNumber(final int slotNumber) {
+        if (slotNumber < 1) {
+            throw new IllegalArgumentException("slotNumber is invalid");
+        }
     }
 }

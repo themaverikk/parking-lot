@@ -1,11 +1,11 @@
 package com.gojek.parkinglot.dao;
 
 public interface ParkingSlotAvailabilityDao {
-    int initParkingSlotsAvailability(int parkingCapacity);
+    void initParkingSlotsAvailability(int parkingCapacity);
 
     int getNearestAvailableSlot();
 
-    int occupyParkingSlot(int slotNumber);
+    void occupyParkingSlot(int slotNumber);
 
-    int freeParkingSlot(int slotNumber);
+    void freeParkingSlot(int slotNumber);
 }

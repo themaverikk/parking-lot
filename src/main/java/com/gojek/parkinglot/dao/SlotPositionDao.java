@@ -8,7 +8,7 @@ import java.util.List;
 public interface SlotPositionDao {
     void initParkingSlotPositions(int parkingCapacity);
 
-    int parkVehicle(Vehicle vehicle);
+    void parkVehicle(int slotNumber, Vehicle vehicle);
 
     boolean unParkVehicle(int slotNumber);
 
