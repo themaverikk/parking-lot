@@ -10,4 +10,6 @@ public interface ParkingSlotColorInfoDao {
     boolean unParkVehicle(int slotNumber, Vehicle vehicle);
 
     List<Integer> getSlotPositionsForVehicleColor(String vehicleColor);
+
+    List<String> getRegNumbersForVehicleColor(final String vehicleColor);
 }

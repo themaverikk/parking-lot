@@ -77,7 +77,7 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         parkingSlotAvailabilityDao.freeParkingSlot(slotNumber);
         final Vehicle unParkedVehicle = parkingSlotPositionDao.unParkVehicle(slotNumber);
         parkingSlotRegNumberInfoDao.unParkVehicle(unParkedVehicle);
-        return false;
+        return parkingSlotColorInfoDao.unParkVehicle(slotNumber, unParkedVehicle);
     }
 
     @Override
@@ -85,6 +85,13 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         StringUtils.validateNotBlank(vehicleColor);
 
         return parkingSlotColorInfoDao.getSlotPositionsForVehicleColor(vehicleColor);
+    }
+
+    @Override
+    public List<String> getRegNumbersForVehicleColor(final String vehicleColor) {
+        StringUtils.validateNotBlank(vehicleColor);
+
+        return parkingSlotColorInfoDao.getRegNumbersForVehicleColor(vehicleColor);
     }
 
     @Override
