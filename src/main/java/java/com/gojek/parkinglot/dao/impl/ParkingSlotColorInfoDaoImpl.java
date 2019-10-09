@@ -16,11 +16,13 @@ import java.util.Set;
 public class ParkingSlotColorInfoDaoImpl implements ParkingSlotColorInfoDao {
 
     private final Map<String, Set<Integer>> colorToSlotNumbersMap;
+    private final Map<String, Set<String>> colorToRegNumberMap;
 
     private static final ParkingSlotColorInfoDao instance = new ParkingSlotColorInfoDaoImpl();
 
     private ParkingSlotColorInfoDaoImpl() {
-        colorToSlotNumbersMap = new HashMap<>();
+        this.colorToSlotNumbersMap = new HashMap<>();
+        this.colorToRegNumberMap = new HashMap<>();
     }
 
     public static ParkingSlotColorInfoDao getInstance() {
@@ -36,7 +38,12 @@ public class ParkingSlotColorInfoDaoImpl implements ParkingSlotColorInfoDao {
             this.colorToSlotNumbersMap.put(vehicle.getColor(), new HashSet<>());
         }
 
-        return this.colorToSlotNumbersMap.get(vehicle.getColor()).add(slotNumber);
+        if (!this.colorToRegNumberMap.containsKey(vehicle.getColor())) {
+            this.colorToRegNumberMap.put(vehicle.getColor(), new HashSet<>());
+        }
+
+        return this.colorToSlotNumbersMap.get(vehicle.getColor()).add(slotNumber)
+                && this.colorToRegNumberMap.get(vehicle.getColor()).add(vehicle.getRegNumber());
     }
 
     @Override
@@ -45,7 +52,8 @@ public class ParkingSlotColorInfoDaoImpl implements ParkingSlotColorInfoDao {
         VehicleValidationUtil.validateVehicle(vehicle);
         validateVehicleColorPresent(vehicle.getColor());
 
-        return this.colorToSlotNumbersMap.get(vehicle.getColor()).remove(slotNumber);
+        return this.colorToSlotNumbersMap.get(vehicle.getColor()).remove(slotNumber)
+                && this.colorToRegNumberMap.get(vehicle.getColor()).remove(vehicle.getRegNumber());
     }
 
     @Override
@@ -59,6 +67,14 @@ public class ParkingSlotColorInfoDaoImpl implements ParkingSlotColorInfoDao {
         return vehicleColorSlots;
     }
 
+    @Override
+    public List<String> getRegNumbersForVehicleColor(final String vehicleColor) {
+        StringUtils.validateNotBlank(vehicleColor);
+        validateVehicleColorPresent(vehicleColor);
+
+        return new ArrayList<>(this.colorToRegNumberMap.get(vehicleColor));
+    }
+
     private void validateSlotNumber(final int slotNumber) {
         if (slotNumber < 1) {
             throw new IllegalArgumentException("slotNumber is invalid");
@@ -66,11 +82,22 @@ public class ParkingSlotColorInfoDaoImpl implements ParkingSlotColorInfoDao {
     }
 
     private void validateVehicleColorPresent(final String vehicleColor) {
-        if (!this.colorToSlotNumbersMap.containsKey(vehicleColor)
-                || this.colorToSlotNumbersMap.get(vehicleColor) == null
-                || this.colorToSlotNumbersMap.get(vehicleColor).isEmpty()) {
 
+        if (isVehicleColorNotInSlotMap(vehicleColor) || isVehicleColorNotInRegNumberMap(vehicleColor)) {
             throw new IllegalArgumentException("No vehicle with given color present in parking slot");
         }
     }
+
+    private boolean isVehicleColorNotInSlotMap(final String vehicleColor) {
+        return !this.colorToSlotNumbersMap.containsKey(vehicleColor)
+                || this.colorToSlotNumbersMap.get(vehicleColor) == null
+                || this.colorToSlotNumbersMap.get(vehicleColor).isEmpty();
+    }
+
+    private boolean isVehicleColorNotInRegNumberMap(final String vehicleColor) {
+        return !this.colorToRegNumberMap.containsKey(vehicleColor)
+                || this.colorToRegNumberMap.get(vehicleColor) == null
+                || this.colorToRegNumberMap.get(vehicleColor).isEmpty();
+    }
+
 }

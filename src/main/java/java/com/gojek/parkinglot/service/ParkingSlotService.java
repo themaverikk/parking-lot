@@ -15,6 +15,8 @@ public interface ParkingSlotService {
 
     List<Integer> getSlotPositionsForVehicleColor(String vehicleColor);
 
+    List<String> getRegNumbersForVehicleColor(final String vehicleColor);
+
     int getSlotNumberForRegNumber(final String regNumber);
 
     List<ParkingSlot> getParkingStatus();
