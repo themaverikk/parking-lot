@@ -15,7 +15,6 @@ import com.gojek.parkinglot.utils.StringUtils;
 import com.gojek.parkinglot.utils.VehicleValidationUtil;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class ParkingSlotServiceImpl implements ParkingSlotService {
     private final ParkingSlotPositionDao parkingSlotPositionDao;
@@ -45,6 +44,8 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
     public void initParkingSlot(final int parkingCapacity) {
         parkingSlotPositionDao.initParkingSlotPositions(parkingCapacity);
         parkingSlotAvailabilityDao.initParkingSlotsAvailability(parkingCapacity);
+        parkingSlotRegNumberInfoDao.initParkingSlotRegNumberInfo();
+        parkingSlotColorInfoDao.initParkingSlotColorInfo();
     }
 
     @Override
@@ -56,18 +57,13 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
             return -1;
         }
 
-        try {
-            final int availableSlotNumber = parkingSlotAvailabilityDao.getNearestAvailableSlot();
-            parkingSlotPositionDao.parkVehicle(availableSlotNumber, vehicle);
-            parkingSlotAvailabilityDao.occupyParkingSlot(availableSlotNumber);
-            parkingSlotRegNumberInfoDao.parkVehicle(availableSlotNumber, vehicle);
-            parkingSlotColorInfoDao.parkVehicle(availableSlotNumber, vehicle);
+        final int availableSlotNumber = parkingSlotAvailabilityDao.getNearestAvailableSlot();
+        parkingSlotPositionDao.parkVehicle(availableSlotNumber, vehicle);
+        parkingSlotAvailabilityDao.occupyParkingSlot(availableSlotNumber);
+        parkingSlotRegNumberInfoDao.parkVehicle(availableSlotNumber, vehicle);
+        parkingSlotColorInfoDao.parkVehicle(availableSlotNumber, vehicle);
 
-            return availableSlotNumber;
-
-        } catch (final NoSuchElementException ex) {
-            throw new IllegalArgumentException("Parking is already full, can't part new vehicle");
-        }
+        return availableSlotNumber;
     }
 
     @Override

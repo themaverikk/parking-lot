@@ -15,6 +15,7 @@ public class ParkingSlotRegNumberInfoDaoImplTest {
     @Before
     public void init() {
         this.parkingSlotRegNumberInfoDao = new ParkingSlotRegNumberInfoDaoImpl();
+        parkingSlotRegNumberInfoDao.initParkingSlotRegNumberInfo();
     }
 
     @Test(expected = IllegalArgumentException.class)

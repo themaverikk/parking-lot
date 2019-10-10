@@ -11,11 +11,10 @@ import java.util.Map;
 public class ParkingSlotRegNumberInfoDaoImpl implements ParkingSlotRegNumberInfoDao {
     private static final ParkingSlotRegNumberInfoDaoImpl instance = new ParkingSlotRegNumberInfoDaoImpl();
 
-    private final Map<String, Integer> regNumberToSlotNumberMap;
+    private Map<String, Integer> regNumberToSlotNumberMap;
 
     // package default constructor so that it can be instantiated in unit tests, for actual use we'll be using singleton instance only
     ParkingSlotRegNumberInfoDaoImpl() {
-        regNumberToSlotNumberMap = new HashMap<>();
     }
 
     public static ParkingSlotRegNumberInfoDaoImpl getInstance() {
@@ -23,7 +22,13 @@ public class ParkingSlotRegNumberInfoDaoImpl implements ParkingSlotRegNumberInfo
     }
 
     @Override
+    public void initParkingSlotRegNumberInfo() {
+        this.regNumberToSlotNumberMap = new HashMap<>();
+    }
+
+    @Override
     public void parkVehicle(final int slotNumber, final Vehicle vehicle) {
+        verifyInitialization();
         validateSlotNumber(slotNumber);
         VehicleValidationUtil.validateVehicle(vehicle);
         validateVehicleIsNotPresent(vehicle);
@@ -33,6 +38,7 @@ public class ParkingSlotRegNumberInfoDaoImpl implements ParkingSlotRegNumberInfo
 
     @Override
     public void unParkVehicle(final Vehicle vehicle) {
+        verifyInitialization();
         VehicleValidationUtil.validateVehicle(vehicle);
         validateVehiclePresent(vehicle);
 
@@ -41,6 +47,7 @@ public class ParkingSlotRegNumberInfoDaoImpl implements ParkingSlotRegNumberInfo
 
     @Override
     public int getSlotNumberForRegNumber(final String regNumber) {
+        verifyInitialization();
         StringUtils.validateNotBlank(regNumber);
         validateRegNumberPresent(regNumber);
 
@@ -68,6 +75,12 @@ public class ParkingSlotRegNumberInfoDaoImpl implements ParkingSlotRegNumberInfo
     private void validateRegNumberPresent(final String regNumber) {
         if (!regNumberToSlotNumberMap.containsKey(regNumber)) {
             throw new IllegalArgumentException("vehicle is not present in parking lot");
+        }
+    }
+
+    private void verifyInitialization() {
+        if (this.regNumberToSlotNumberMap == null) {
+            throw new IllegalStateException("Parking lot has not been initialized properly");
         }
     }
 }

@@ -25,6 +25,8 @@ public class ParkingSlotPositionDaoImpl implements ParkingSlotPositionDao {
 
     @Override
     public void initParkingSlotPositions(final int parkingCapacity) {
+        validateParkingCapacity(parkingCapacity);
+
         this.parkingSlots = new ArrayList<>(parkingCapacity);
         IntStream.range(0, parkingCapacity).forEach(i -> this.parkingSlots.add(null));
     }
@@ -48,7 +50,7 @@ public class ParkingSlotPositionDaoImpl implements ParkingSlotPositionDao {
         verifyInitialization();
         validateSlotNumber(slotNumber);
 
-        // slot is empty occupied
+        // slot is already empty
         if (this.parkingSlots.get(slotNumber - 1) == null) {
             throw new IllegalArgumentException("Given slot is already empty");
         }
@@ -75,6 +77,12 @@ public class ParkingSlotPositionDaoImpl implements ParkingSlotPositionDao {
     private void validateSlotNumber(final int slotNumber) {
         if (slotNumber < 1 || slotNumber > this.parkingSlots.size()) {
             throw new IllegalArgumentException("Invalid slotNumber");
+        }
+    }
+
+    private void validateParkingCapacity(final int parkingCapacity) {
+        if (parkingCapacity < 0) {
+            throw new IllegalArgumentException("Invalid parking capacity");
         }
     }
 

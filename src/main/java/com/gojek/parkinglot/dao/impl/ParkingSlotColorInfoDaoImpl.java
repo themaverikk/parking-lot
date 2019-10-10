@@ -15,19 +15,23 @@ import java.util.Set;
 
 public class ParkingSlotColorInfoDaoImpl implements ParkingSlotColorInfoDao {
 
-    private final Map<String, Set<Integer>> colorToSlotNumbersMap;
-    private final Map<String, Set<String>> colorToRegNumberMap;
+    private Map<String, Set<Integer>> colorToSlotNumbersMap;
+    private Map<String, Set<String>> colorToRegNumberMap;
 
     private static final ParkingSlotColorInfoDao instance = new ParkingSlotColorInfoDaoImpl();
 
     // package default constructor so that it can be instantiated in unit tests, for actual use we'll be using singleton instance only
     ParkingSlotColorInfoDaoImpl() {
-        this.colorToSlotNumbersMap = new HashMap<>();
-        this.colorToRegNumberMap = new HashMap<>();
     }
 
     public static ParkingSlotColorInfoDao getInstance() {
         return instance;
+    }
+
+    @Override
+    public void initParkingSlotColorInfo() {
+        this.colorToSlotNumbersMap = new HashMap<>();
+        this.colorToRegNumberMap = new HashMap<>();
     }
 
     @Override

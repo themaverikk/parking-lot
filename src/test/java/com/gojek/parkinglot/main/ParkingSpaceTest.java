@@ -1,6 +1,5 @@
 package com.gojek.parkinglot.main;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -91,6 +90,7 @@ public class ParkingSpaceTest {
     public void getSlotNosFromColor() throws Exception {
         parkingSpace.doPark("KA131", "White");
         parkingSpace.doPark("KA132", "Black");
+
         parkingSpace.getSlotNosFromColor("White");
         assertEquals(
                 "Allocated slot number: 1\n" +
