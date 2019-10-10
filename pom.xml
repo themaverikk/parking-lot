@@ -28,7 +28,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>java.com.gojek.parkinglot.main.Main</mainClass>
+                            <mainClass>com.gojek.parkinglot.main.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

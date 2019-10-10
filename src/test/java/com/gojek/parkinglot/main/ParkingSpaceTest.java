@@ -57,8 +57,8 @@ public class ParkingSpaceTest {
                 "Allocated slot number: 1\n" +
                         "Allocated slot number: 2\n" +
                         "Slot No.\tRegistration No\tColour\n" +
-                        "1\tKA127\tWhite\n" +
-                        "2\tKA128\tWhite\n", outContent.toString());
+                        "1\t\tKA127\tWhite\n" +
+                        "2\t\tKA128\tWhite\n", outContent.toString());
     }
 
     @Test

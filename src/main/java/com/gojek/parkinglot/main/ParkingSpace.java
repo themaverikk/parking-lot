@@ -14,6 +14,8 @@ public class ParkingSpace {
     public void createParkingLot(final String lotNumber){
         parkingSlotService = ParkingSlotServiceImpl.getInstance();
         parkingSlotService.initParkingSlot(Integer.parseInt(lotNumber));
+
+        System.out.println(String.format("Created a parking lot with %s slots", lotNumber));
     }
 
     public void createNewParkingLot(final String lotNumber){
@@ -40,7 +42,7 @@ public class ParkingSpace {
             else
                 System.out.println("Not found");
 
-        }catch (IllegalArgumentException e){
+        } catch (final IllegalArgumentException e) {
             System.out.println("Not found");
         }
 
@@ -50,7 +52,7 @@ public class ParkingSpace {
         final List<ParkingSlot> parkingSlots = parkingSlotService.getParkingStatus();
         System.out.println("Slot No.\tRegistration No\tColour");
         for (final ParkingSlot parkingSlot: parkingSlots) {
-            System.out.println(parkingSlot.getSlotNumber() + "\t" + parkingSlot.getParkedVehicle().getRegNumber()
+            System.out.println(parkingSlot.getSlotNumber() + "\t\t" + parkingSlot.getParkedVehicle().getRegNumber()
             + "\t" + parkingSlot.getParkedVehicle().getColor());
         }
 
@@ -83,6 +85,4 @@ public class ParkingSpace {
             System.out.println("Not found");
         }
     }
-
-
 }
