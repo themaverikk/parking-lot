@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 public class ParkingSlotColorInfoDaoImplTest {
 
     private static final String VEHICLE_REG_NUMBER = "HR-31-0799";
@@ -76,6 +78,54 @@ public class ParkingSlotColorInfoDaoImplTest {
         final boolean unParked = parkingSlotColorInfoDao.unParkVehicle(1, new Vehicle(VEHICLE_REG_NUMBER, VEHICLE_COLOR));
 
         Assert.assertTrue(unParked);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetSlotPositionsForVehicleColorWithInvalidColor() {
+        parkingSlotColorInfoDao.getSlotPositionsForVehicleColor(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetSlotPositionsForVehicleColorWithNonExistentColor() {
+        parkingSlotColorInfoDao.getSlotPositionsForVehicleColor(VEHICLE_COLOR);
+    }
+
+    @Test
+    public void testGetSlotPositionsForVehicleColorWithValidColor() {
+        parkingSlotColorInfoDao.parkVehicle(1, new Vehicle(VEHICLE_REG_NUMBER, VEHICLE_COLOR));
+        parkingSlotColorInfoDao.parkVehicle(3, new Vehicle("KA-01-1111", VEHICLE_COLOR));
+
+        final List<Integer> slotPositionsForVehicleColor = parkingSlotColorInfoDao.getSlotPositionsForVehicleColor(VEHICLE_COLOR);
+
+        Assert.assertNotNull(slotPositionsForVehicleColor);
+        Assert.assertEquals(2, slotPositionsForVehicleColor.size());
+        Assert.assertEquals(1, (int) slotPositionsForVehicleColor.get(0));
+        Assert.assertEquals(3, (int) slotPositionsForVehicleColor.get(1));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetRegNumbersForVehicleColorWithInvalidColor() {
+        parkingSlotColorInfoDao.getRegNumbersForVehicleColor(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetRegNumbersForVehicleColorWithNonExistentColor() {
+        parkingSlotColorInfoDao.getSlotPositionsForVehicleColor(VEHICLE_COLOR);
+    }
+
+    @Test
+    public void testGetRegNumbersForVehicleColorWithValidColor() {
+        final String secondVehicleRegNumber = "KA-01-1111";
+
+        parkingSlotColorInfoDao.parkVehicle(1, new Vehicle(VEHICLE_REG_NUMBER, VEHICLE_COLOR));
+        parkingSlotColorInfoDao.parkVehicle(3, new Vehicle(secondVehicleRegNumber, VEHICLE_COLOR));
+
+        final List<String> slotPositionsForVehicleColor = parkingSlotColorInfoDao.getRegNumbersForVehicleColor(VEHICLE_COLOR);
+
+        Assert.assertNotNull(slotPositionsForVehicleColor);
+        Assert.assertEquals(2, slotPositionsForVehicleColor.size());
+        Assert.assertEquals(VEHICLE_REG_NUMBER, slotPositionsForVehicleColor.get(0));
+        Assert.assertEquals(secondVehicleRegNumber, slotPositionsForVehicleColor.get(1));
     }
 
 }
