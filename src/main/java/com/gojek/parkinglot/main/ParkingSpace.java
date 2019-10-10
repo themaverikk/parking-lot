@@ -28,9 +28,11 @@ public class ParkingSpace {
     }
 
     public void doLeave(final String slotNumber){
-        if(parkingSlotService.unParkVehicle(Integer.parseInt(slotNumber))){
+        try{
+            parkingSlotService.unParkVehicle(Integer.parseInt(slotNumber));
             System.out.println("Slot number "+slotNumber+" is free");
-        }else{
+
+        }catch (IllegalArgumentException e){
             System.out.println("Not found");
         }
 
@@ -47,7 +49,12 @@ public class ParkingSpace {
     }
 
     public void getRegNosFromColor(final String color){
-        //parkingSlotService.get
+        final List<String> regNos = parkingSlotService.getRegNumbersForVehicleColor(color);
+
+        for(int i=0;i<regNos.size()-1;i++){
+            System.out.print(regNos.get(i) + ", ");
+        }
+        System.out.println(regNos.get(regNos.size()-1));
 
     }
 
@@ -55,7 +62,7 @@ public class ParkingSpace {
        final List<Integer> slots = parkingSlotService.getSlotPositionsForVehicleColor(color);
 
        for(int i=0;i<slots.size()-1;i++){
-           System.out.println(slots.get(i) + ", ");
+           System.out.print(slots.get(i) + ", ");
        }
         System.out.println(slots.get(slots.size()-1));
     }

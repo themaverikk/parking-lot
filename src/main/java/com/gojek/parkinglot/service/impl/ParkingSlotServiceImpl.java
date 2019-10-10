@@ -36,6 +36,10 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         return instance;
     }
 
+    public static ParkingSlotService getNewInstance(){
+        return new ParkingSlotServiceImpl();
+    }
+
     @Override
     public void initParkingSlot(final int parkingCapacity) {
         parkingSlotPositionDao.initParkingSlotPositions(parkingCapacity);
@@ -70,7 +74,7 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         validateSlotNumber(slotNumber);
 
         // if parking is empty, vehicle can't be un-parked
-        if (!parkingSlotAvailabilityDao.isParkingEmpty()) {
+        if (parkingSlotAvailabilityDao.isParkingEmpty()) {
             return false;
         }
 
