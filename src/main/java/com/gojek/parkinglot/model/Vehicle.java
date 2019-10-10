@@ -1,4 +1,4 @@
-package java.com.gojek.parkinglot.model;
+package com.gojek.parkinglot.model;
 
 public class Vehicle {
     private String regNumber;
@@ -6,7 +6,7 @@ public class Vehicle {
 
     public Vehicle(){}
 
-    public  Vehicle(String regNumber, String color){
+    public  Vehicle(final String regNumber, final String color){
         this.regNumber = regNumber;
         this.color = color;
     }

@@ -1,4 +1,4 @@
-package java.com.gojek.parkinglot.main;
+package com.gojek.parkinglot.main;
 
 import org.junit.After;
 import org.junit.Before;
@@ -6,7 +6,7 @@ import org.junit.Before;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class MainTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();

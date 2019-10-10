@@ -1,4 +1,4 @@
-package java.com.gojek.parkinglot.model;
+package com.gojek.parkinglot.model;
 
 public class ParkingSlot {
     private int slotNumber;

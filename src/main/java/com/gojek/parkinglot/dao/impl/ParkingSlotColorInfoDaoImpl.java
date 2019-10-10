@@ -1,9 +1,9 @@
-package java.com.gojek.parkinglot.dao.impl;
+package com.gojek.parkinglot.dao.impl;
 
-import java.com.gojek.parkinglot.dao.ParkingSlotColorInfoDao;
-import java.com.gojek.parkinglot.model.Vehicle;
-import java.com.gojek.parkinglot.utils.StringUtils;
-import java.com.gojek.parkinglot.utils.VehicleValidationUtil;
+import com.gojek.parkinglot.dao.ParkingSlotColorInfoDao;
+import com.gojek.parkinglot.model.Vehicle;
+import com.gojek.parkinglot.utils.StringUtils;
+import com.gojek.parkinglot.utils.VehicleValidationUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,9 +1,9 @@
-package java.com.gojek.parkinglot.dao.impl;
+package com.gojek.parkinglot.dao.impl;
 
-import java.com.gojek.parkinglot.dao.ParkingSlotPositionDao;
-import java.com.gojek.parkinglot.model.ParkingSlot;
-import java.com.gojek.parkinglot.model.Vehicle;
-import java.com.gojek.parkinglot.utils.VehicleValidationUtil;
+import com.gojek.parkinglot.dao.ParkingSlotPositionDao;
+import com.gojek.parkinglot.model.ParkingSlot;
+import com.gojek.parkinglot.model.Vehicle;
+import com.gojek.parkinglot.utils.VehicleValidationUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ public class ParkingSlotPositionDaoImpl implements ParkingSlotPositionDao {
     @Override
     public void initParkingSlotPositions(final int parkingCapacity) {
         this.parkingSlots = new ArrayList<>(parkingCapacity);
+        IntStream.range(0, parkingCapacity).forEach(i -> this.parkingSlots.add(null));
     }
 
     @Override

@@ -1,18 +1,18 @@
-package java.com.gojek.parkinglot.service.impl;
+package com.gojek.parkinglot.service.impl;
 
-import java.com.gojek.parkinglot.dao.ParkingSlotAvailabilityDao;
-import java.com.gojek.parkinglot.dao.ParkingSlotColorInfoDao;
-import java.com.gojek.parkinglot.dao.ParkingSlotPositionDao;
-import java.com.gojek.parkinglot.dao.ParkingSlotRegNumberInfoDao;
-import java.com.gojek.parkinglot.dao.impl.ParkingSlotAvailabilityDaoImpl;
-import java.com.gojek.parkinglot.dao.impl.ParkingSlotColorInfoDaoImpl;
-import java.com.gojek.parkinglot.dao.impl.ParkingSlotPositionDaoImpl;
-import java.com.gojek.parkinglot.dao.impl.ParkingSlotRegNumberInfoDaoImpl;
-import java.com.gojek.parkinglot.model.ParkingSlot;
-import java.com.gojek.parkinglot.model.Vehicle;
-import java.com.gojek.parkinglot.service.ParkingSlotService;
-import java.com.gojek.parkinglot.utils.StringUtils;
-import java.com.gojek.parkinglot.utils.VehicleValidationUtil;
+import com.gojek.parkinglot.dao.ParkingSlotAvailabilityDao;
+import com.gojek.parkinglot.dao.ParkingSlotColorInfoDao;
+import com.gojek.parkinglot.dao.ParkingSlotPositionDao;
+import com.gojek.parkinglot.dao.ParkingSlotRegNumberInfoDao;
+import com.gojek.parkinglot.dao.impl.ParkingSlotAvailabilityDaoImpl;
+import com.gojek.parkinglot.dao.impl.ParkingSlotColorInfoDaoImpl;
+import com.gojek.parkinglot.dao.impl.ParkingSlotPositionDaoImpl;
+import com.gojek.parkinglot.dao.impl.ParkingSlotRegNumberInfoDaoImpl;
+import com.gojek.parkinglot.model.ParkingSlot;
+import com.gojek.parkinglot.model.Vehicle;
+import com.gojek.parkinglot.service.ParkingSlotService;
+import com.gojek.parkinglot.utils.StringUtils;
+import com.gojek.parkinglot.utils.VehicleValidationUtil;
 
 import java.util.List;
 import java.util.NoSuchElementException;

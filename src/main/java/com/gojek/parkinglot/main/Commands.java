@@ -1,4 +1,4 @@
-package java.com.gojek.parkinglot.main;
+package com.gojek.parkinglot.main;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public class Commands {
         commandsMap = new HashMap<String, Method>();
         try {
             populateCommandsHashMap();
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
             e.printStackTrace();
         }
     }

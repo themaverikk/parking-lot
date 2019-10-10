@@ -1,6 +1,6 @@
-package java.com.gojek.parkinglot.utils;
+package com.gojek.parkinglot.utils;
 
-import java.com.gojek.parkinglot.model.Vehicle;
+import com.gojek.parkinglot.model.Vehicle;
 
 public final class VehicleValidationUtil {
     private VehicleValidationUtil() {

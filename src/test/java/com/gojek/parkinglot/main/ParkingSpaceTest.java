@@ -1,4 +1,4 @@
-package java.com.gojek.parkinglot.main;
+package com.gojek.parkinglot.main;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ParkingSpaceTest {
     private ParkingSpace parkingSpace;

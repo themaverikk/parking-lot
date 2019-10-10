@@ -1,7 +1,7 @@
-package java.com.gojek.parkinglot.service;
+package com.gojek.parkinglot.service;
 
-import java.com.gojek.parkinglot.model.ParkingSlot;
-import java.com.gojek.parkinglot.model.Vehicle;
+import com.gojek.parkinglot.model.ParkingSlot;
+import com.gojek.parkinglot.model.Vehicle;
 
 import java.util.List;
 

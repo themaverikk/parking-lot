@@ -1,9 +1,9 @@
-package java.com.gojek.parkinglot.model;
+package com.gojek.parkinglot.model;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class VehicleTest {
 
@@ -13,7 +13,7 @@ public class VehicleTest {
 
     @Before
     public void setUp(){
-        Vehicle vehicle = new Vehicle();
+        vehicle = new Vehicle();
         vehicle.setColor(VEHICLE_COLOR);
         vehicle.setRegNumber(VEHICLE_NUMBER);
     }

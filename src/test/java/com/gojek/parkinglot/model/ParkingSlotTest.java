@@ -1,9 +1,9 @@
-package java.com.gojek.parkinglot.model;
+package com.gojek.parkinglot.model;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ParkingSlotTest {
     public static final String VEHICLE_COLOR = "Black";
@@ -14,7 +14,7 @@ public class ParkingSlotTest {
     @Before
     public void setUp(){
         parkingSlot = new ParkingSlot();
-        Vehicle vehicle = new Vehicle();
+        final Vehicle vehicle = new Vehicle();
         vehicle.setColor(VEHICLE_COLOR);
         vehicle.setRegNumber(VEHICLE_NUMBER);
         parkingSlot.setParkedVehicle(vehicle);

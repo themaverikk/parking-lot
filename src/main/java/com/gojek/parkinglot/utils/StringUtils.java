@@ -1,4 +1,4 @@
-package java.com.gojek.parkinglot.utils;
+package com.gojek.parkinglot.utils;
 
 public final class StringUtils {
 

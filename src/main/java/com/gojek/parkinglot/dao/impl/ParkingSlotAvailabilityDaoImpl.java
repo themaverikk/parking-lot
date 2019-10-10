@@ -1,6 +1,6 @@
-package java.com.gojek.parkinglot.dao.impl;
+package com.gojek.parkinglot.dao.impl;
 
-import java.com.gojek.parkinglot.dao.ParkingSlotAvailabilityDao;
+import com.gojek.parkinglot.dao.ParkingSlotAvailabilityDao;
 
 import java.util.PriorityQueue;
 import java.util.Queue;

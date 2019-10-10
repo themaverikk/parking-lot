@@ -1,4 +1,4 @@
-package java.com.gojek.parkinglot.dao;
+package com.gojek.parkinglot.dao;
 
 public interface ParkingSlotAvailabilityDao {
     void initParkingSlotsAvailability(int parkingCapacity);

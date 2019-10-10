@@ -1,9 +1,9 @@
-package java.com.gojek.parkinglot.main;
+package com.gojek.parkinglot.main;
 
-import java.com.gojek.parkinglot.model.ParkingSlot;
-import java.com.gojek.parkinglot.model.Vehicle;
-import java.com.gojek.parkinglot.service.ParkingSlotService;
-import java.com.gojek.parkinglot.service.impl.ParkingSlotServiceImpl;
+import com.gojek.parkinglot.model.ParkingSlot;
+import com.gojek.parkinglot.model.Vehicle;
+import com.gojek.parkinglot.service.ParkingSlotService;
+import com.gojek.parkinglot.service.impl.ParkingSlotServiceImpl;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class ParkingSpace {
 
     public void doPark(final String regNo, final String color){
 
-        int slotNumber = parkingSlotService.parkVehicle(new Vehicle(regNo, color));
+        final int slotNumber = parkingSlotService.parkVehicle(new Vehicle(regNo, color));
         if(slotNumber == -1){
             System.out.println("Sorry, parking lot is full");
         }else{
@@ -37,9 +37,9 @@ public class ParkingSpace {
     }
 
     public void getParkingSpaceStatus(){
-        List<ParkingSlot> parkingSlots = parkingSlotService.getParkingStatus();
+        final List<ParkingSlot> parkingSlots = parkingSlotService.getParkingStatus();
         System.out.println("Slot No.\tRegistration No\tColour");
-        for (ParkingSlot parkingSlot: parkingSlots) {
+        for (final ParkingSlot parkingSlot: parkingSlots) {
             System.out.println(parkingSlot.getSlotNumber() + "\t" + parkingSlot.getParkedVehicle().getRegNumber()
             + "\t" + parkingSlot.getParkedVehicle().getColor());
         }
@@ -52,7 +52,7 @@ public class ParkingSpace {
     }
 
     public void getSlotNosFromColor(final String color){
-       List<Integer> slots = parkingSlotService.getSlotPositionsForVehicleColor(color);
+       final List<Integer> slots = parkingSlotService.getSlotPositionsForVehicleColor(color);
 
        for(int i=0;i<slots.size()-1;i++){
            System.out.println(slots.get(i) + ", ");
@@ -62,9 +62,9 @@ public class ParkingSpace {
 
     public void getSlotNoFromRegNo(final String regNo){
         try{
-            int slotNumber = parkingSlotService.getSlotNumberForRegNumber(regNo);
+            final int slotNumber = parkingSlotService.getSlotNumberForRegNumber(regNo);
             System.out.println(slotNumber);
-        }catch (IllegalArgumentException e){
+        }catch (final IllegalArgumentException e){
             System.out.println("Not found");
         }
     }
