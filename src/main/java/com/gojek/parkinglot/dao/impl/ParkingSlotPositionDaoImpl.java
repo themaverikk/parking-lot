@@ -15,7 +15,8 @@ public class ParkingSlotPositionDaoImpl implements ParkingSlotPositionDao {
 
     private List<Vehicle> parkingSlots;
 
-    private ParkingSlotPositionDaoImpl() {
+    // package default constructor so that it can be instantiated in unit tests, for actual use we'll be using singleton instance only
+    ParkingSlotPositionDaoImpl() {
     }
 
     public static ParkingSlotPositionDao getInstance() {

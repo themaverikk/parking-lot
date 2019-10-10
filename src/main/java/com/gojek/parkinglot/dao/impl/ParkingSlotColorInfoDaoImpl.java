@@ -20,7 +20,8 @@ public class ParkingSlotColorInfoDaoImpl implements ParkingSlotColorInfoDao {
 
     private static final ParkingSlotColorInfoDao instance = new ParkingSlotColorInfoDaoImpl();
 
-    private ParkingSlotColorInfoDaoImpl() {
+    // package default constructor so that it can be instantiated in unit tests, for actual use we'll be using singleton instance only
+    ParkingSlotColorInfoDaoImpl() {
         this.colorToSlotNumbersMap = new HashMap<>();
         this.colorToRegNumberMap = new HashMap<>();
     }

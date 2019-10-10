@@ -9,15 +9,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingSlotRegNumberInfoDaoImpl implements ParkingSlotRegNumberInfoDao {
-    private static final ParkingSlotRegNumberInfoDao instance = new ParkingSlotRegNumberInfoDaoImpl();
+    private static final ParkingSlotRegNumberInfoDaoImpl instance = new ParkingSlotRegNumberInfoDaoImpl();
 
     private final Map<String, Integer> regNumberToSlotNumberMap;
 
-    private ParkingSlotRegNumberInfoDaoImpl() {
+    // package default constructor so that it can be instantiated in unit tests, for actual use we'll be using singleton instance only
+    ParkingSlotRegNumberInfoDaoImpl() {
         regNumberToSlotNumberMap = new HashMap<>();
     }
 
-    public static ParkingSlotRegNumberInfoDao getInstance() {
+    public static ParkingSlotRegNumberInfoDaoImpl getInstance() {
         return instance;
     }
 

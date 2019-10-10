@@ -25,7 +25,8 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
 
     private static final ParkingSlotService instance = new ParkingSlotServiceImpl();
 
-    private ParkingSlotServiceImpl() {
+    // package default constructor so that it can be instantiated in unit tests, for actual use we'll be using singleton instance only
+    ParkingSlotServiceImpl() {
         this.parkingSlotPositionDao = ParkingSlotPositionDaoImpl.getInstance();
         this.parkingSlotAvailabilityDao = ParkingSlotAvailabilityDaoImpl.getInstance();
         this.parkingSlotRegNumberInfoDao = ParkingSlotRegNumberInfoDaoImpl.getInstance();
