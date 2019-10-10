@@ -16,6 +16,12 @@ public class ParkingSpace {
         parkingSlotService.initParkingSlot(Integer.parseInt(lotNumber));
     }
 
+    public void createNewParkingLot(final String lotNumber){
+        parkingSlotService = ParkingSlotServiceImpl.getNewInstance();
+        parkingSlotService.initParkingSlot(Integer.parseInt(lotNumber));
+
+    }
+
     public void doPark(final String regNo, final String color){
 
         final int slotNumber = parkingSlotService.parkVehicle(new Vehicle(regNo, color));
@@ -29,8 +35,10 @@ public class ParkingSpace {
 
     public void doLeave(final String slotNumber){
         try{
-            parkingSlotService.unParkVehicle(Integer.parseInt(slotNumber));
-            System.out.println("Slot number "+slotNumber+" is free");
+            if(parkingSlotService.unParkVehicle(Integer.parseInt(slotNumber)))
+                System.out.println("Slot number "+slotNumber+" is free");
+            else
+                System.out.println("Not found");
 
         }catch (IllegalArgumentException e){
             System.out.println("Not found");

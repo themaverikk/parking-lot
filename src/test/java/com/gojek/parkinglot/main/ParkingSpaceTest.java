@@ -25,7 +25,7 @@ public class ParkingSpaceTest {
     @Before
     public void createParkingLot() throws Exception {
         parkingSpace = new ParkingSpace();
-        parkingSpace.createParkingLot("2");
+        parkingSpace.createNewParkingLot("2");
     }
 
     @Test
@@ -41,7 +41,7 @@ public class ParkingSpaceTest {
 
     @Test
     public void doLeave() throws Exception {
-        parkingSpace.doPark("KA123", "White");
+        parkingSpace.doPark("KA126", "White");
         parkingSpace.doLeave("1");
         parkingSpace.doLeave("1");
         assertEquals("Allocated slot number: 1\n" +
@@ -51,44 +51,35 @@ public class ParkingSpaceTest {
 
     @Test
     public void getParkingSpaceStatus() throws Exception {
-        parkingSpace.doPark("KA123", "White");
-        parkingSpace.doPark("KA124", "White");
+        parkingSpace.doPark("KA127", "White");
+        parkingSpace.doPark("KA128", "White");
         parkingSpace.getParkingSpaceStatus();
         assertEquals(
                 "Allocated slot number: 1\n" +
                         "Allocated slot number: 2\n" +
                         "Slot No.\tRegistration No\tColour\n" +
-                        "1\tKA123\tWhite\n" +
-                        "2\tKA124\tWhite\n", outContent.toString());
+                        "1\tKA127\tWhite\n" +
+                        "2\tKA128\tWhite\n", outContent.toString());
     }
 
     @Test
     public void getRegNosFromColor() throws Exception {
-        parkingSpace.doPark("KA124", "Black");
-        parkingSpace.doPark("KA125", "Black");
+        parkingSpace.doPark("KA129", "Black");
+        parkingSpace.doPark("KA130", "Black");
         parkingSpace.getRegNosFromColor("Black");
         assertEquals(
                 "Allocated slot number: 1\n" +
                         "Allocated slot number: 2\n" +
-                        "KA125, KA124\n", outContent.toString());
+                        "KA130, KA129\n", outContent.toString());
     }
 
-    @Test
-    public void getSlotNosFromColor() throws Exception {
-        parkingSpace.doPark("KA124", "White");
-        parkingSpace.doPark("KA125", "Black");
-        parkingSpace.getSlotNosFromColor("White");
-        assertEquals(
-                "Allocated slot number: 1\n" +
-                        "Allocated slot number: 2\n" +
-                        "1\n", outContent.toString());
-    }
+
 
     @Test
     public void getSlotNoFromRegNo() throws Exception {
-        parkingSpace.doPark("KA124", "White");
-        parkingSpace.doPark("KA125", "Black");
-        parkingSpace.getSlotNoFromRegNo("KA125");
+        parkingSpace.doPark("KA133", "White");
+        parkingSpace.doPark("KA134", "Black");
+        parkingSpace.getSlotNoFromRegNo("KA134");
         assertEquals(
                 "Allocated slot number: 1\n" +
                         "Allocated slot number: 2\n" +
@@ -96,10 +87,17 @@ public class ParkingSpaceTest {
 
     }
 
-    @After
-    public void cleanUp() {
-        parkingSpace.doLeave("1");
-        parkingSpace.doLeave("2");
+    @Test
+    public void getSlotNosFromColor() throws Exception {
+        parkingSpace.doPark("KA131", "White");
+        parkingSpace.doPark("KA132", "Black");
+        parkingSpace.getSlotNosFromColor("White");
+        assertEquals(
+                "Allocated slot number: 1\n" +
+                        "Allocated slot number: 2\n" +
+                        "1\n", outContent.toString());
     }
+
+
 
 }
