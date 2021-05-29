@@ -1,4 +1,4 @@
-# GoJek Parking lot Problem
+# GoJek Parking-lot problem solution
 
 Project Requirements
 * JDK 1.8
